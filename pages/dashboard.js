@@ -10,8 +10,8 @@ export default function Dashboard() {
         <title>Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <LvlupSection></LvlupSection>
-      <EntryList></EntryList>
+      <LvlupSection />
+      <EntryList />
     </div>
   );
 }
