@@ -2,7 +2,7 @@ export default function EntryCard(props) {
   return (
     <div className="entry-card">
       {props.entry ? (
-        <div class="container">
+        <div className="container">
           <h4>
             <b>{props.entry.name}</b>
           </h4>
