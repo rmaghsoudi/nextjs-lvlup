@@ -1,11 +1,12 @@
 import EntryCard from "./EntryCard";
+import EntryModal from "./EntryModal";
 
 class EntryList extends React.Component {
   constructor(props) {
     super(props);
     // filters out the completed entries (API sends all entries belonging to a user)
     const entries = this.filterEntries(props.entries, false);
-    this.state = { entries };
+    this.state = { entries, showModal: false };
   }
 
   handleSort = (e) => {
@@ -53,6 +54,12 @@ class EntryList extends React.Component {
           <option value="completed">Complete</option>
           <option value="incomplete">Incomplete</option>
         </select>
+
+        <button className="btn-add-entry" onClick>
+          Add Entry
+        </button>
+        <EntryModal />
+
         {this.state.entries.length > 0
           ? this.state.entries.map((entry) => {
               return <EntryCard key={entry.id} entry={entry} />;
