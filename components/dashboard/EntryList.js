@@ -1,94 +1,51 @@
 import EntryCard from "./EntryCard";
 
-export default function EntryList() {
-  return (
-    <div className="entry-list">
-      Hello I am the entry list, pleased to meet you
-      {dummyEntries.length > 0
-        ? dummyEntries.map((entry) => {
-            return <EntryCard entry={entry} />;
-          })
-        : "You don't have any entries yet :("}
-    </div>
-  );
+class EntryList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { entries: props.entries };
+  }
+
+  handleSort = (e) => {
+    const sortedEntries = [...this.props.entries].sort((a, b) => {
+      return a[e.target.value] > b[e.target.value];
+    });
+    this.setState({ entries: sortedEntries });
+  };
+
+  handleFilter = (e) => {};
+
+  render() {
+    return (
+      <div className="entry-list">
+        <label for="sort">Sort by:</label>
+
+        <select name="sort" onChange={(e) => this.handleSort(e)}>
+          <option value="" disabled selected>
+            Select your option
+          </option>
+          <option value="completed">Completion</option>
+          <option value="xp">XP</option>
+          <option value="difficulty">Difficulty</option>
+        </select>
+
+        <label for="filter">Filter by:</label>
+
+        <select name="filter" onChange={(e) => this.handleFilter(e)}>
+          <option value="" disabled selected>
+            Select your option
+          </option>
+          <option value="c">Complete</option>
+          <option value="i">Incomplete</option>
+        </select>
+        {this.state.entries.length > 0
+          ? this.state.entries.map((entry) => {
+              return <EntryCard entry={entry} />;
+            })
+          : "You don't have any entries yet :("}
+      </div>
+    );
+  }
 }
 
-const dummyEntries = [
-  {
-    id: 1,
-    name: "Take out trash",
-    completed: false,
-    description: "",
-    parent_entry: null,
-    user: 1,
-    type: "task",
-    difficulty: 2,
-    xp: 200,
-  },
-  {
-    id: 2,
-    name: "Write out weekly plan",
-    completed: true,
-    description: "what will you be doing daily? how'll your days be carved up?",
-    parent_entry: null,
-    user: 1,
-    type: "task",
-    difficulty: 5,
-    xp: 500,
-  },
-  {
-    id: 3,
-    name: "Clean apartment",
-    completed: false,
-    description: "",
-    parent_entry: null,
-    user: 1,
-    type: "task",
-    difficulty: 7,
-    xp: 700,
-  },
-  {
-    id: 4,
-    name: "Get groceries",
-    completed: true,
-    description: "get veggies, sum meat, und peper tewels",
-    parent_entry: null,
-    user: 1,
-    type: "task",
-    difficulty: 3,
-    xp: 300,
-  },
-  {
-    id: 5,
-    name: "Make a web app",
-    completed: false,
-    description: "create a full stack web app to add to your portfolio",
-    parent_entry: null,
-    user: 1,
-    type: "goal",
-    difficulty: 5,
-    xp: 5000,
-  },
-  {
-    id: 6,
-    name: "complete API",
-    completed: true,
-    description: "",
-    parent_entry: 5,
-    user: 1,
-    type: "pillar",
-    difficulty: 5,
-    xp: 2500,
-  },
-  {
-    id: 7,
-    name: "complete UI",
-    completed: false,
-    description: "",
-    parent_entry: 5,
-    user: 1,
-    type: "pillar",
-    difficulty: 5,
-    xp: 2500,
-  },
-];
+export default EntryList;

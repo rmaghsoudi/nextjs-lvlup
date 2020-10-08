@@ -6,11 +6,9 @@ export default function LvlupSection() {
         id="lvlup-meter"
         value={dummyUser.xp}
         max={dummyUser.xp_to_lvlup}
-      >
-        Level {dummyUser.level}
-      </progress>
+      ></progress>
       <label htmlFor="lvlup-meter">
-        {dummyUser.xp}xp / {dummyUser.xp_to_lvlup}xp
+        Level {dummyUser.level}: {dummyUser.xp}xp / {dummyUser.xp_to_lvlup}xp
       </label>
     </div>
   );
