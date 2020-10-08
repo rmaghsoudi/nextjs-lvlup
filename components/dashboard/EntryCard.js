@@ -11,7 +11,6 @@ export default function EntryCard(props) {
           <input
             type="checkbox"
             className="entry-checkbox"
-            value="false"
             defaultChecked={props.entry.completed}
           ></input>
           <p>Difficulty: {props.entry.difficulty}</p>

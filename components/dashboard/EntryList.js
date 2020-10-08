@@ -35,8 +35,8 @@ class EntryList extends React.Component {
           <option value="" disabled selected>
             Select your option
           </option>
-          <option value="c">Complete</option>
-          <option value="i">Incomplete</option>
+          <option value="completed">Complete</option>
+          <option value="incomplete">Incomplete</option>
         </select>
         {this.state.entries.length > 0
           ? this.state.entries.map((entry) => {
