@@ -2,19 +2,34 @@ import Head from "next/head";
 import LvlupSection from "../components/dashboard/LvlupSection";
 import EntryList from "../components/dashboard/EntryList";
 import styles from "../styles/Home.module.css";
+import EntryModal from "../components/dashboard/EntryModal";
 
-export default function Dashboard() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Dashboard</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <LvlupSection />
-      <EntryList entries={dummyEntries} />
-    </div>
-  );
+class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showModal: false };
+  }
+
+  toggleModal = () => {
+    this.setState({ showModal: !this.state.showModal });
+  };
+
+  render() {
+    return (
+      <div className={styles.container}>
+        <Head>
+          <title>Dashboard</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <LvlupSection />
+        <EntryList entries={dummyEntries} toggleModal={this.toggleModal} />
+        <EntryModal showModal={this.state.showModal} />
+      </div>
+    );
+  }
 }
+
+export default Dashboard;
 
 let dummyEntries = [
   {
