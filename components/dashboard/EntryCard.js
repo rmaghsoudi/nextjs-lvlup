@@ -5,6 +5,8 @@ export default function EntryCard(props) {
         <div className="container">
           <h4>
             <b>{props.entry.name}</b>
+            <button className="btn-edit-entry">Edit</button>
+            <button className="btn-delete-entry">Delete</button>
           </h4>
           <p>{props.entry.description}</p>
           <label htmlFor="entry-checkbox"></label>
