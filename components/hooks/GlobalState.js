@@ -81,50 +81,33 @@ const initialState = {
     ],
   },
 };
+const getUser = (id) =>
+  axios.get(`${apiURL}/users/${id}`).then((res) => res.json());
 
-// TODO: have API calls within the functions then GET the user again and send that to the reducer
-// the app only needs the user because it contains all of the info, no need to store entries in state
-export const GlobalContext = createContext(initialState);
-export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
+function useUser(id) {
+  const { data, error, mutate } = useSWR("getUser", getUser(id));
+  return {
+    user: data,
+    isLoading: !error && !data,
+    isError: error,
+    setUser: mutate,
+  };
+}
 
-  function getUser(id) {
-    axios.get(`${apiURL}/users/${id}`).then((res) => {
-      dispatch({
-        type: "UPDATE_API_USER",
-        payload: res,
-      });
-    });
-  }
+export default function removeEntry(id) {
+  axios.get(`${apiURL}/entries/${id}`).then((res) => {
+    useUser(res.user);
+  });
+}
 
-  function removeEntry(id) {
-    axios.get(`${apiURL}/entries/${id}`).then((res) => {
-      getUser(state.user.id);
-    });
-  }
+export default function addEntry(entry) {
+  axios.post(`${apiURL}/entries`, { entry }).then((res) => {
+    useUser(res.user);
+  });
+}
 
-  function addEntry(entry) {
-    axios.post(`${apiURL}/entries`, { entry }).then((res) => {
-      getUser(state.user.id);
-    });
-  }
-
-  function editEntry(entry) {
-    axios.patch(`${apiURL}/entries/${entry.id}`, { entry }).then((res) => {
-      getUser(state.user.id);
-    });
-  }
-
-  return (
-    <GlobalContext.Provider
-      value={{
-        user: state.user,
-        removeEntry,
-        addEntry,
-        editEntry,
-      }}
-    >
-      {children}
-    </GlobalContext.Provider>
-  );
-};
+export default function editEntry(entry) {
+  axios.patch(`${apiURL}/entries/${entry.id}`, { entry }).then((res) => {
+    useUser(res.user);
+  });
+}
