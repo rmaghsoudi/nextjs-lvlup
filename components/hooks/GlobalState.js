@@ -1,6 +1,4 @@
-import React, { createContext, useReducer, useState } from "react";
 import axios from "axios";
-import AppReducer from "./AppReducer";
 import apiURL from "../Constants.js";
 
 const initialState = {
@@ -86,6 +84,7 @@ const getUser = (id) =>
 
 function useUser(id) {
   const { data, error, mutate } = useSWR("getUser", getUser(id));
+
   return {
     user: data,
     isLoading: !error && !data,

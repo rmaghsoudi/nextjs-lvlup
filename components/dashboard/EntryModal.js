@@ -1,8 +1,9 @@
-export default class EntryModal extends React.Component {
-  render() {
-    if (!this.props.showModal) {
-      return null;
-    }
+export default function EntryModal(props) {
+  const showModal = props.showModal;
+
+  if (showModal) {
+    const entry = props.entry || "";
+
     // the ternaries in the defaultValues are for editing existing entries
     // prevents it from breaking if we're just creating a new one (no entry in props)
     return (
@@ -12,22 +13,14 @@ export default class EntryModal extends React.Component {
           <input
             type="text"
             name="title"
-            defaultValue={
-              typeof this.props.entry !== "undefined"
-                ? this.props.entry.title
-                : null
-            }
+            defaultValue={entry ? entry.title : null}
           />
           <br />
           <label htmlFor="description">Description: </label>
           <textarea
             placeholder="entry info"
             name="description"
-            defaultValue={
-              typeof this.props.entry !== "undefined"
-                ? this.props.entry.description
-                : null
-            }
+            defaultValue={entry ? entry.description : null}
           />
           <br />
           <label htmlFor="entry-parent">Parent Entry: </label>
@@ -52,11 +45,7 @@ export default class EntryModal extends React.Component {
             name="entry-difficulty"
             min="1"
             max="10"
-            defaultValue={
-              typeof this.props.entry !== "undefined"
-                ? this.props.entry.difficulty
-                : null
-            }
+            defaultValue={entry ? entry.difficulty : null}
           />{" "}
           <br />
           <label htmlFor="entry-completed">Completed: </label>
@@ -64,25 +53,14 @@ export default class EntryModal extends React.Component {
             type="checkbox"
             name="entry-completed"
             value="True"
-            defaultChecked={
-              typeof this.props.entry !== "undefined"
-                ? this.props.entry.completed
-                : null
-            }
+            defaultChecked={entry ? entry.completed : null}
           />
           <br />
-          <input
-            type="hidden"
-            name="user"
-            value={
-              typeof this.props.entry !== "undefined"
-                ? this.props.entry.user
-                : null
-            }
-          />
+          <input type="hidden" name="user" value={entry ? entry.user : null} />
           <input type="submit" value="Submit" />
         </form>
       </div>
     );
   }
+  return null;
 }

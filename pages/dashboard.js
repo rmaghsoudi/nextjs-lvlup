@@ -1,35 +1,29 @@
 import Head from "next/head";
+import { useState } from "react";
 import LvlupSection from "../components/dashboard/LvlupSection";
 import EntryList from "../components/dashboard/EntryList";
 import styles from "../styles/Home.module.css";
 import EntryModal from "../components/dashboard/EntryModal";
 
-class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { showModal: false };
-  }
+export default function Dashboard() {
+  const [showModal, setShowModal] = useState(false);
 
-  toggleModal = () => {
-    this.setState({ showModal: !this.state.showModal });
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
-  render() {
-    return (
-      <div className={styles.container}>
-        <Head>
-          <title>Dashboard</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <LvlupSection />
-        <EntryList entries={dummyEntries} toggleModal={this.toggleModal} />
-        <EntryModal showModal={this.state.showModal} />
-      </div>
-    );
-  }
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Dashboard</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <LvlupSection />
+      <EntryList entries={dummyEntries} toggleModal={toggleModal} />
+      <EntryModal showModal={showModal} />
+    </div>
+  );
 }
-
-export default Dashboard;
 
 let dummyEntries = [
   {
