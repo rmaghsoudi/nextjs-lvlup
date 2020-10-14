@@ -1,23 +1,17 @@
-export default function LvlupSection() {
+export default function LvlupSection(props) {
+  const api_user = props.api_user;
+
   return (
     <div className="lvlup-section">
       Im the lvlup section, wus gud
       <progress
         id="lvlup-meter"
-        value={dummyUser.xp}
-        max={dummyUser.xp_to_lvlup}
+        value={api_user.xp}
+        max={api_user.xp_to_lvlup}
       ></progress>
       <label htmlFor="lvlup-meter">
-        Level {dummyUser.level}: {dummyUser.xp}xp / {dummyUser.xp_to_lvlup}xp
+        Level {api_user.level}: {api_user.xp}xp / {api_user.xp_to_lvlup}xp
       </label>
     </div>
   );
 }
-
-const dummyUser = {
-  id: 1,
-  auth_id: "auth | 78263t 12341",
-  level: 1,
-  xp: 1000,
-  xp_to_lvlup: 1515,
-};
