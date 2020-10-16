@@ -7,18 +7,20 @@ import styles from "../styles/Home.module.css";
 import EntryModal from "../components/dashboard/EntryModal";
 
 export default function Dashboard() {
-  const { api_user, error, isLoading, setUser } = useUser(1);
+  const { api_user, isError, isLoading, setUser } = useUser(1);
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
 
-  if (error) {
-    return "Thewe was an ewwow lowding the page UwU ";
-  } else if (isLoading) {
-    return "Loading page";
-  } else if (api_user) {
+  if (isError) {
+    return <div>Thewe was an ewwow lowding the page UwU</div>;
+  }
+  if (isLoading) {
+    return <div>Loading page</div>;
+  }
+  if (api_user) {
     return (
       <div className={styles.container}>
         <Head>
